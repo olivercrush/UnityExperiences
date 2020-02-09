@@ -10,7 +10,9 @@ public class Graph : MonoBehaviour
         MultiSine,
         MultiSine2D,
         Ripple,
-        Cylinder
+        Cylinder,
+        Sphere,
+        Torus
     }
 
     // Experimentation from https://catlikecoding.com/unity/tutorials/basics/building-a-graph/
@@ -24,7 +26,7 @@ public class Graph : MonoBehaviour
 
     private Transform[] points;
     private static GraphFunction[] functions = {
-        SineFunction, Sine2DFunction, MultiSineFunction, MultiSine2DFunction, Ripple, Cylinder
+        SineFunction, Sine2DFunction, MultiSineFunction, MultiSine2DFunction, Ripple, Cylinder, Sphere, Torus
     };
 
     private void Awake()
@@ -123,13 +125,27 @@ public class Graph : MonoBehaviour
         return p;
     }
 
-    private static Vector3 Sphere (float u, float v, float t)
+    private static Vector3 Sphere(float u, float v, float t)
     {
         Vector3 p;
-        float r = Mathf.Cos(pi * 0.5f * v);
-        p.x = r * Mathf.Sin(pi * u);
-        p.y = v;
-        p.z = r * Mathf.Cos(pi * u);
+        float r = 0.8f + Mathf.Sin(pi * (6f * u + t)) * 0.1f;
+        r += Mathf.Sin(pi * (4f * v + t)) * 0.1f;
+        float s = r * Mathf.Cos(pi * 0.5f * v);
+        p.x = s * Mathf.Sin(pi * u);
+        p.y = r * Mathf.Sin(pi * 0.5f * v);
+        p.z = s * Mathf.Cos(pi * u);
+        return p;
+    }
+
+    private static Vector3 Torus(float u, float v, float t)
+    {
+        Vector3 p;
+        float r1 = 0.65f + Mathf.Sin(pi * (6f * u + t)) * 0.1f;
+        float r2 = 0.2f + Mathf.Sin(pi * (4f * v + t)) * 0.05f;
+        float s = r2 * Mathf.Cos(pi * v) + r1;
+        p.x = s * Mathf.Sin(pi * u);
+        p.y = r2 * Mathf.Sin(pi * v);
+        p.z = s * Mathf.Cos(pi * u);
         return p;
     }
 }
