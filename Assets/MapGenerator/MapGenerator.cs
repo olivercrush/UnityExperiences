@@ -19,7 +19,8 @@ public class MapGenerator : MonoBehaviour
         for (int y = 0; y < _height; y++) {
             for (int x = 0; x < _width; x++) {
                 GameObject cell = Instantiate(_prefab, new Vector3(x, 0, y), Quaternion.identity, transform);
-                cell.GetComponent<Renderer>().material.color = new Color(Random.value, Random.value, Random.value);
+                float color = Random.value;
+                cell.GetComponent<Renderer>().material.color = new Color(color, color, color);
             }
         }
     }
