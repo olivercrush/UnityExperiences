@@ -480,7 +480,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 368623256}
         m_TargetAssemblyTypeName: MapGenerator, Assembly-CSharp
-        m_MethodName: GenerateGraphicMapFromParams
+        m_MethodName: GenerateGraphicMapAtOrigin
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
