@@ -5,6 +5,7 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour
 {
     public GameObject _prefab;
+    public GameObject _camera;
 
     public int _width = 5;
     public int _height = 5;
@@ -17,6 +18,29 @@ public class MapGenerator : MonoBehaviour
     void Start()
     {
         GenerateGraphicMapAtOrigin();
+    }
+
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.S)) {
+            _yOrigin--;
+            GenerateGraphicMapAtOrigin();
+        }
+
+        if (Input.GetKey(KeyCode.W)) {
+            _yOrigin++;
+            GenerateGraphicMapAtOrigin();
+        }
+
+        if (Input.GetKey(KeyCode.A)) {
+            _xOrigin--;
+            GenerateGraphicMapAtOrigin();
+        }
+
+        if (Input.GetKey(KeyCode.D)) {
+            _xOrigin++;
+            GenerateGraphicMapAtOrigin();
+        }
     }
 
     public void GenerateGraphicMapAtOrigin() {
@@ -40,11 +64,16 @@ public class MapGenerator : MonoBehaviour
                 cell.GetComponent<Renderer>().material.color = new Color(color, color, color);
             }
         }
+        PlaceCameraAtCenter();
     }
 
     private void DeleteGraphicMap() {
         foreach (Transform child in transform) {
             GameObject.Destroy(child.gameObject);
         }
+    }
+
+    private void PlaceCameraAtCenter() {
+        _camera.transform.position = new Vector3(_width / 2, _width, _height / 2);
     }
 }
